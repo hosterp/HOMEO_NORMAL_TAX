@@ -104,6 +104,19 @@ class ResPartner(models.Model):
         else:
             self.address_new=""
             # print(self.address_new,'sdaaaaaaaaaaaaaaafr')
+
+    @api.multi
+    def write(self, vals):
+        if 'local_area_customer' in vals:
+            local_area_customer = vals['local_area_customer']
+            if local_area_customer:
+                self.local_area_customer=""
+                self.name += "," + local_area_customer
+                print(self.name, ' res.name res.name')
+        res = super(ResPartner, self).write(vals)
+
+        return res
+
     @api.model
     def create(self, vals):
         res = super(ResPartner, self).create(vals)
