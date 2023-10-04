@@ -107,7 +107,7 @@
                                         <th>Product/Service</th>
                                         <th>Batch</th>
                                         <th>Expiry</th>
-                                        <th>Quantity</th>
+                                        <th>Qty</th>
                                         <th class="text-right">MRP</th>
                                         <th class="text-right">Unit Price</th>
                                         <th class="text-right">GST%</th>
@@ -554,6 +554,10 @@
                                         </td>
                                     </tr>
                                 </table>
+                                <div t-if="o.amount_in_words">
+                                    <strong>Total Amount in words:</strong>
+                                    <span t-field="o.amount_in_words"/>
+                                </div>
                             </div>
                         </div>
 

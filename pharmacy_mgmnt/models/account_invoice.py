@@ -1,4 +1,5 @@
 # import dateutil.utils
+from num2words import num2words
 
 from openerp import api, models, fields
 from openerp.osv import osv
@@ -1181,6 +1182,14 @@ class AccountInvoice(models.Model):
     pack_open_cus_invoice_id = fields.Many2one("account.invoice", domain=[('type', '=', 'out_invoice'), ('cus_invoice', '=', True)])
     pack_invoice_id = fields.Many2one("account.invoice", domain=[('type', '=', 'out_invoice'), ('packing_invoice', '=', True)])
 
+    amount_in_words = fields.Char('Amount in Words', compute='_compute_amount_in_words')
+
+    @api.depends('amount_total')
+    def _compute_amount_in_words(self):
+        for invoice in self:
+            print(invoice.amount_total, 'total')
+            invoice.amount_in_words = num2words(invoice.amount_total, lang='en').title()
+            print(invoice.amount_in_words, 'words')
 
     @api.multi
     def previous_invoice(self):
